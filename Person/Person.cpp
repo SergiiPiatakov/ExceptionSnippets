@@ -32,6 +32,11 @@ bool Validator::ValidateSex (const Person & person)
 
 int Validator::ParseBDate (const Person & person)
 {
+    if (person.ptn.size () < 5) {
+        ValidatorExceptionBDate e ("Parse date error. String too short.");
+        throw e;
+    }
+
     return std::stoi (person.ptn.substr (0, 5), nullptr);
 }
 
@@ -39,6 +44,11 @@ int Validator::ParseBDate (const Person & person)
 
 Sex Validator::ParseSex (const Person & person)
 {
+    if (person.ptn.size () < 9) {
+        ValidatorExceptionSex e ("Parse sex error. String too short.");
+        throw e;
+    }
+
     const int x = person.ptn [8] - '0';
     return (x & 1) ? Sex::Male
                    : Sex::Female;

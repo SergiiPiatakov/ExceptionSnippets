@@ -3,6 +3,7 @@
 
 #include <string>
 #include <ctime>
+#include <exception>
 
 
 
@@ -40,6 +41,54 @@ struct Person
     Name        name;
     Date        bdate;
     Sex         sex;
+};
+
+
+
+class ValidatorException : std::exception
+{
+    public:
+        ValidatorException (const std::string & message)
+            : std::exception ()
+            , message {message}
+        {
+        }
+
+        const char * what () const noexcept override {return message.c_str ();} 
+
+     protected:
+         const std::string message;
+};
+
+
+
+class ValidatorExceptionSex : public ValidatorException
+{
+    public:
+        ValidatorExceptionSex (const std::string & message)
+            : ValidatorException (message)
+        {
+        }
+};
+
+
+
+class ValidatorExceptionBDate : public ValidatorException
+{
+    public:
+        ValidatorExceptionBDate (const std::string & message)
+            : ValidatorException (message)
+        {
+        }
+};
+
+class ValidatorExceptionInvalidYear: public ValidatorException
+{
+    public:
+        ValidatorExceptionInvalidYear (const std::string & message)
+            : ValidatorException (message)
+        {
+        }
 };
 
 

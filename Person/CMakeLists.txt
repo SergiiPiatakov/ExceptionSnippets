@@ -20,3 +20,19 @@ add_library (
     person SHARED
     ${PersonLib_SOURCES}
 )
+
+
+set (
+    PersonExe_SOURCES
+    ${PROJECT_SOURCE_DIR}/main.cpp
+)
+
+add_executable (
+    main
+    ${PersonExe_SOURCES}
+)
+
+target_link_libraries (
+    main
+    person
+)
