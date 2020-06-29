@@ -3,20 +3,21 @@ project                 (person)
 set (person_VERSION_MAJOR 0)
 set (person_VERSION_MINOR 1)
 
-set (CMAKE_CXX_STANDARD 11)
-set (CMAKE_CXX_STANDARD_REQUIRED ON)
-set (CMAKE_CXX_EXTENSIONS OFF)
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-set (CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS} -O0 -ggdb3")
-set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -O3")
-
-
-set (
-    PersonLib_SOURCES
+set (PersonLib_SOURCES
     ${PROJECT_SOURCE_DIR}/Person.cpp
 )
 
-add_library (
-    person SHARED
-    ${PersonLib_SOURCES}
+add_library (person ${PersonLib_SOURCES})
+add_library (gl::person ALIAS person)
+
+target_compile_features (person
+    PUBLIC cxx_std_11
+)
+
+target_include_directories (person
+    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_compile_options (person
+    PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-Wall -Wextra>
 )
