@@ -10,8 +10,11 @@ set (PersonLib_SOURCES
 add_library (person ${PersonLib_SOURCES})
 add_library (gl::person ALIAS person)
 
-target_compile_features (person
-    PUBLIC cxx_std_11
+set_target_properties (person
+    PROPERTIES
+        CXX_STANDARD 11
+        CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO
 )
 
 target_include_directories (person
