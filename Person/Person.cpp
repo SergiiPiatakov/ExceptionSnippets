@@ -12,11 +12,15 @@ bool Validator::ValidatePerson (const Person & person)
 
 bool Validator::ValidateBDate (const Person & person)
 {
+    const int secToDays = 60 * 60 * 24; // The number of seconds in one day.
+    const int daysOffset= 25567;        // The number of days between 1900 and 1970.
+    const int daysOboe  = 1;            // Off-by-one error correction.
+
     Date a {1970, 1, 1};
     Date b = person.bdate;
     const std::time_t c = std::mktime (& a);
     const std::time_t d = std::mktime (& b);
-    const int days = (std::difftime (d, c) ) / (60 * 60 * 24) + 25568;
+    const int days = (std::difftime (d, c) ) / secToDays + daysOffset + daysOboe;
 
     return ParseBDate (person) == days;
 }
