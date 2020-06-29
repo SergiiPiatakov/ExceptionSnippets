@@ -36,10 +36,10 @@ enum class Sex
 
 struct Person
 {
-    std::string ptn;
-    Name        name;
-    Date        bdate;
-    Sex         sex;
+    std::string ptn;    // Personal tax number.
+    Name        name;   // Full name.
+    Date        bdate;  // Birth date.
+    Sex         sex;    // Gender.
 };
 
 
