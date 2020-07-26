@@ -14,16 +14,16 @@ PLIB_DIR=$(PWD)/Person/build
 	$(CXX) 003_main.cpp $(CXXflags) -o 003_main
 
 
-# Person library should be compiled first in build directory inside Person
-004: main.o person_library
-	$(CXX) $< $(PLIB_DIR)/libperson.a -Wl,-rpath=$(PLIB_DIR) -o 004_main
+# Person library should be compiled first in build directory inside Person directory
+004: main.o person_libraries
+	$(CXX) -o 004_main -L$(PLIB_DIR) $< -lperson -Wl,-rpath=$(PLIB_DIR)
 
 #Compile the main executable file: USED ONLY AS DEPENDENCY FOR 004
 main.o: 004_person_test.cpp
 	$(CXX) -fPIC -c $(CXXflags) -IPerson $^ -o $@
 
 #Compile the library using CMake : USED ONLY AS DEPENDENCY FOR 004
-person_library:
+person_libraries:
 	cmake -HPerson -B$(PLIB_DIR)
 	cmake --build $(PLIB_DIR)
 
@@ -33,3 +33,4 @@ person_library:
 	$(RM) 003_main
 	$(RM) main.o
 	$(RM) 004_main
+	rm -rf $(PLIB_DIR)
