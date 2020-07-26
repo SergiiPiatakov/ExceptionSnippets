@@ -24,3 +24,26 @@ target_include_directories (person
 target_compile_options (person
     PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-Wall -Wextra>
 )
+
+# Add and link exception library
+
+set(XCEPT_SOURCES  ${PROJECT_SOURCE_DIR}/xeptions.cpp)
+
+add_library (xeptions ${PersonLib_SOURCES})
+
+set_target_properties (xeptions
+    PROPERTIES
+        CXX_STANDARD 11
+        CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO
+)
+
+target_include_directories (person
+    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_compile_options (xeptions
+    PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-Wall -Wextra>
+)
+
+#target_link_libraries(xeptions PUBLIC person)
